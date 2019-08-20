@@ -2,7 +2,6 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-
       return queryInterface.bulkInsert('Meals', [{
         name: "Breakfast",
         createdAt: new Date(),
@@ -22,8 +21,7 @@ module.exports = {
         name: "Dinner",
         createdAt: new Date(),
         updatedAt: new Date()
-      }
-      ], {});
+      }], {});
     },
 
     down: (queryInterface, Sequelize) => {
