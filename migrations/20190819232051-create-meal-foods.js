@@ -11,7 +11,7 @@ module.exports = {
       FoodId: {
         type: Sequelize.BIGINT,
         references: {
-          model: "Foods",
+          model: "Food",
           key: "id"
         },
         onUpdate: "CASCADE",
