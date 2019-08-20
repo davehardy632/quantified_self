@@ -21,8 +21,7 @@ module.exports = {
         name: "Dinner",
         createdAt: new Date(),
         updatedAt: new Date()
-      }
-      ], {});
+      }], {});
     },
 
     down: (queryInterface, Sequelize) => {

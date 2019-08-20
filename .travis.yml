@@ -3,6 +3,9 @@ node_js:
 - 12.8.0
 services:
 - postgresql
+before_script:
+- cp config/config.json.travis config/config.json
+- psql -c 'create database travis_ci_test;' -U postgres
 script:
 - npm run test
 deploy:
