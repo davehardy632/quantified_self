@@ -3,11 +3,6 @@ var request = require("supertest")
 var app = require("../../../app")
 const express = require("express");
 var router = express.Router();
-var Meal = require('../../../models').Meal;
-var Food = require('../../../models').Food;
-var MealFoods = require('../../../models').MealFoods;
-const axios = require('axios');
-const keys = require("dotenv")
 
 
 describe('api', () => {
@@ -31,8 +26,8 @@ describe('api', () => {
     })
   })
 
-  describe ("test the get all meals endpoint", async () => {
-    test("should return a 201 status", async () => {
+  describe ("test the get all meals endpoint", () => {
+    test("should return a 201 status", () => {
       return request(app).get("/api/v1/meals")
       .set('Accept', 'application/json')
       .then(response => {
