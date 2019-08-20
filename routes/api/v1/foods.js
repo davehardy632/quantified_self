@@ -14,4 +14,26 @@ router.get('/', function(req, res) {
   });
 });
 
+router.get('/:id', function(req, res) {
+  Food.findOne({
+    where: {
+      id: parseInt(req.params.id)
+    },
+    attributes: ["id", "name", "calories"]
+  })
+  .then(foods => {
+    if (foods) {
+      res.setHeader("Content-Type", "application/json");
+      res.status(200).send(JSON.stringify(foods));
+    } else {
+      res.setHeader("Content-Type", "application/json");
+      res.status(404).send(JSON.stringify({NotFoundError: "Not Found"}));
+    }
+  })
+  .catch(error => {
+    res.setHeader("Content-Type", "application/json");
+    res.status(500).send(JSON.stringify(error));
+  });
+});
+
 module.exports = router;
