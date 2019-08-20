@@ -41,4 +41,23 @@ describe('api', () => {
       });
     });
   });
+
+  describe('api v1 food fetch single item path', () => {
+    test('It should respond to a GET request', () => {
+    return request(app).get("/api/v1/foods/1")
+      .then(response => {
+        expect(response.statusCode).toBe(200);
+      });
+    });
+
+    test('It should return a single food objects', () => {
+    return request(app).get("/api/v1/foods/1")
+      .then(response => {
+        expect(response.body.length).toBe(1);
+        expect(Object.keys(response.body[0])).toContain("id");
+        expect(Object.keys(response.body[0])).toContain("name");
+        expect(Object.keys(response.body[0])).toContain("calories");
+      });
+    });
+  });
 });
