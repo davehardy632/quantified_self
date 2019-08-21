@@ -83,7 +83,7 @@ router.delete("/:meal_id/foods/:id", async function(req, res, next) {
     .then(deletedMealFood => {
       deleteAssociationResponse = {"message": `${food[0]['dataValues']['name']} has been removed from ${meal[0]['dataValues']['name']}`}
       res.setHeader("Content-Type", "application/json");
-      res.status(404).send(JSON.stringify(deleteAssociationResponse));
+      res.status(204).send();
     })
     .catch(error => {
       res.setHeader("Content-Type", "application/json");

@@ -129,4 +129,49 @@ describe('api', () => {
       })
     })
   })
+
+  describe ("Deleting a food from its associated meal", async () => {
+    test("should return a 204 status, stating the food was removed from the meal", async () => {
+      return request(app).delete("/api/v1/meals/2/foods/3")
+      .set('Accept', 'application/json')
+      .then(response => {
+        expect(response.statusCode).toBe(204);
+      })
+    })
+  })
+
+  ///////// user story 8 sad path testing for removing a food from a meal by deleting the association
+
+  describe ("Trying to delete a meal/food association with an invalid meal id", async () => {
+    test("should return a 404 status, stating the meal entry was invalid", async () => {
+      return request(app).delete("/api/v1/meals/21/foods/3")
+      .set('Accept', 'application/json')
+      .then(response => {
+        expect(response.statusCode).toBe(404);
+        expect(response.body).toEqual({"message": "Invalid meal entry"})
+      })
+    })
+  })
+
+  describe ("Trying to delete a meal/food association with an invalid food id", async () => {
+    test("should return a 404 status, stating the food entry was invalid", async () => {
+      return request(app).delete("/api/v1/meals/2/foods/31")
+      .set('Accept', 'application/json')
+      .then(response => {
+        expect(response.statusCode).toBe(404);
+        expect(response.body).toEqual({"message": "Invalid food entry"})
+      })
+    })
+  })
+
+  describe ("Trying to delete a meal/food association that doesnt exist", async () => {
+    test("should return a 404 status, stating the association already does not exist", async () => {
+      return request(app).delete("/api/v1/meals/1/foods/5")
+      .set('Accept', 'application/json')
+      .then(response => {
+        expect(response.statusCode).toBe(404);
+        expect(response.body).toEqual({"message": `Breakfast already does not contain Gum`})
+      })
+    })
+  })
 })
