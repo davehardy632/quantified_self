@@ -29,4 +29,22 @@ describe('api', () => {
       });
     });
   });
+
+  describe('api v1 food fetch single path', () => {
+    test('It should respond to a GET request', () => {
+    return request(app).get("/api/v1/foods/1")
+      .then(response => {
+        expect(response.statusCode).toBe(200);
+      });
+    });
+
+    test('It should return a single food object', () => {
+    return request(app).get("/api/v1/foods/1")
+      .then(response => {
+        expect(Object.keys(response.body)).toContain("id");
+        expect(Object.keys(response.body)).toContain("name");
+        expect(Object.keys(response.body)).toContain("calories");
+      });
+    });
+  });
 });
