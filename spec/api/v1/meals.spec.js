@@ -59,13 +59,73 @@ describe('api', () => {
     })
   })
 
+  ///// Sad path for retrieving an invalid meal
+
   describe ("test meal id endpoint for nonexistent record", async () => {
-    test("should return a 200 status, response stating the record doesn't exist", async () => {
+    test("should return a 404 status, response stating the record doesn't exist", async () => {
       return request(app).get("/api/v1/meals/23/foods")
       .set('Accept', 'application/json')
       .then(response => {
         expect(response.statusCode).toBe(404);
         expect(response.body).toEqual("Meal not found");
+      })
+    })
+  })
+
+
+  describe ("Adding a food to a meal endpoint", async () => {
+    test("should return a 200 status, stating the food has been added to the meal", async () => {
+      return request(app).post("/api/v1/meals/1/foods/3")
+      .set('Accept', 'application/json')
+      .then(response => {
+        expect(response.statusCode).toBe(201);
+        expect(response.body).toEqual({"message": `Successfully added Apple to Breakfast`});
+      })
+    })
+  })
+
+  /////// sad path for creating association between a meal and food
+
+  describe ("Sad Path: Adding a food to a meal endpoint with invalid food id", async () => {
+    test("should return a 404 status, stating the food entry is invalid", async () => {
+      return request(app).post("/api/v1/meals/1/foods/32")
+      .set('Accept', 'application/json')
+      .then(response => {
+        expect(response.statusCode).toBe(404);
+        expect(response.body).toEqual({"message": "Invalid food entry"});
+      })
+    })
+  })
+
+  describe ("Sad Path: Adding a food to a meal endpoint with invalid meal id", async () => {
+    test("should return a 200 status, stating the meal entry is invalid", async () => {
+      return request(app).post("/api/v1/meals/13/foods/3")
+      .set('Accept', 'application/json')
+      .then(response => {
+        expect(response.statusCode).toBe(404);
+        expect(response.body).toEqual({"message": "Invalid meal entry"});
+      })
+    })
+  })
+
+  describe ("Sad Path: Adding a food to a meal endpoint that already exists", async () => {
+    test("should return a 404 status, stating the association already exists", async () => {
+      return request(app).post("/api/v1/meals/4/foods/7")
+      .set('Accept', 'application/json')
+      .then(response => {
+        expect(response.statusCode).toBe(404);
+        expect(response.body).toEqual({"message": `Dinner already contains Bagel Bites - Four Cheese`});
+      })
+    })
+  })
+
+  describe ("Sad Path: Adding a food to a meal endpoint where both ids are invalid", async () => {
+    test("should return a 404 status, stating the entry was invalid", async () => {
+      return request(app).post("/api/v1/meals/42/foods/17")
+      .set('Accept', 'application/json')
+      .then(response => {
+        expect(response.statusCode).toBe(404);
+        expect(response.body).toEqual({"message": "Invalid entry"});
       })
     })
   })
