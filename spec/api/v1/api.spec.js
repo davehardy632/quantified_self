@@ -3,23 +3,12 @@ var request = require("supertest")
 var app = require("../../../app")
 const express = require("express");
 var router = express.Router();
-var Meal = require('../../../models').Meal;
 var Food = require('../../../models').Food;
+var Meal = require('../../../models').Meal;
 var MealFoods = require('../../../models').MealFoods;
 
 
 describe('api', () => {
-  beforeAll(() => {
-    shell.exec('npx sequelize db:drop');
-    shell.exec('npx sequelize db:create');
-    shell.exec('npx sequelize db:migrate');
-  });
-
-  beforeEach(() => {
-    
-    shell.exec('npx sequelize db:seed:all');
-  });
-
   describe ("test the root path", () => {
     test("should return a 202 status", () => {
       return request(app).get("/").then(response => {
