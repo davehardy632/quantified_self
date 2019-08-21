@@ -46,5 +46,13 @@ describe('api', () => {
         expect(Object.keys(response.body)).toContain("calories");
       });
     });
+
+    test('It should return an error on invalid id', () => {
+    return request(app).get("/api/v1/foods/10000")
+      .then(response => {
+        expect(response.statusCode).toBe(404);
+        expect(Object.keys(response.body)).toContain("error");
+      });
+    });
   });
 });
