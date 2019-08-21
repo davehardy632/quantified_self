@@ -50,19 +50,19 @@ router.post("/:meal_id/foods/:id", async function(req, res, next) {
   } else if (Object.keys(meal) == '0' && Object.keys(food) != '0') {
     invalidFoodError = {"message": "Invalid food entry"}
     res.setHeader("Content-Type", "application/json");
-    res.status(500).send(JSON.stringify(invalidFoodError));
+    res.status(404).send(JSON.stringify(invalidFoodError));
   } else if (Object.keys(meal) != '0' && Object.keys(food) == '0') {
     invalidMealError = {"message": "Invalid meal entry"}
     res.setHeader("Content-Type", "application/json");
-    res.status(500).send(JSON.stringify(invalidMealError));
+    res.status(404).send(JSON.stringify(invalidMealError));
   } else if (Object.keys(meal) == '0' && Object.keys(food) == '0' && Object.keys(mealFood) == '0') {
     existingResourceError = {"message": `${meal[0]['dataValues']['name']} already contains ${food[0]['dataValues']['name']}`}
     res.setHeader("Content-Type", "application/json");
-    res.status(500).send(JSON.stringify(existingResourceError));
+    res.status(404).send(JSON.stringify(existingResourceError));
   } else {
     invalidEntryError = {"message": "Invalid entry"}
     res.setHeader("Content-Type", "application/json");
-    res.status(500).send(JSON.stringify(invalidEntryError));
+    res.status(404).send(JSON.stringify(invalidEntryError));
   }
 });
 
