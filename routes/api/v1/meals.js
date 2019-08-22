@@ -66,6 +66,44 @@ router.post("/:meal_id/foods/:id", async function(req, res, next) {
   }
 });
 
+
+router.delete("/:meal_id/foods/:id", async function(req, res, next) {
+  mealId = parseInt(req.url.split("/")[1])
+  foodId = parseInt(req.url.split("/")[3])
+
+  meal = await mealById(mealId)
+  food = await foodById(foodId)
+  mealFood = await mealFoodsByIds(mealId, foodId)
+
+  if (Object.keys(mealFood) == '0') {
+    MealFoods.destroy({where: {
+      FoodId: foodId,
+      MealId: mealId
+    }})
+    .then(deletedMealFood => {
+      deleteAssociationResponse = {"message": `${food[0]['dataValues']['name']} has been removed from ${meal[0]['dataValues']['name']}`}
+      res.setHeader("Content-Type", "application/json");
+      res.status(204).send();
+    })
+    .catch(error => {
+      res.setHeader("Content-Type", "application/json");
+      res.status(500).send({ error });
+    });
+  } else if (Object.keys(meal) != '0') {
+    invalidMealError = {"message": "Invalid meal entry"}
+    res.setHeader("Content-Type", "application/json");
+    res.status(404).send(JSON.stringify(invalidMealError));
+  } else if (Object.keys(food) != '0') {
+    invalidFoodError = {"message": "Invalid food entry"}
+    res.setHeader("Content-Type", "application/json");
+    res.status(404).send(JSON.stringify(invalidFoodError));
+  } else if (Object.keys(mealFood) != '0') {
+    invalidMealFoodError = {"message": `${meal[0]['dataValues']['name']} already does not contain ${food[0]['dataValues']['name']}`}
+    res.setHeader("Content-Type", "application/json");
+    res.status(404).send(JSON.stringify(invalidMealFoodError));
+  }
+});
+
 //////// async functions
 
 let allMeals = async () => {
