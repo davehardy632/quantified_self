@@ -51,7 +51,10 @@ router.post('/', function(req, res) {
         }).then(newFood => {
           res.setHeader("Content-Type", "application/json");
           res.status(201).send(JSON.stringify(newFood));
-        })
+        }).catch(error => {
+          res.setHeader("Content-Type", "application/json");
+          res.status(500).send(JSON.stringify({error: error}));
+        });
       } else {
         res.setHeader("Content-Type", "application/json");
         res.status(400).send(JSON.stringify({error: "Food already exists."}));
@@ -59,7 +62,7 @@ router.post('/', function(req, res) {
     })
     .catch(error => {
       res.setHeader("Content-Type", "application/json");
-      res.status(500).send(JSON.stringify(error));
+      res.status(500).send(JSON.stringify({error: error}));
     });
   } else {
     res.setHeader("Content-Type", "application/json");
