@@ -37,7 +37,6 @@ router.get('/', function(req, res) {
 });
 
 router.post('/', function(req, res) {
-  console.log(req.body.food.name)
   if (req.body.food){
     Food.findOne(
       {
