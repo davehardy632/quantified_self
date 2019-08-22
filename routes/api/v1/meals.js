@@ -3,8 +3,6 @@ var router = express.Router();
 var Meal = require('../../../models').Meal;
 var Food = require('../../../models').Food;
 var MealFoods = require('../../../models').MealFoods;
-const axios = require('axios');
-const keys = require("dotenv")
 
 router.get("/", async function(req, res, next) {
   meals = await allMeals()

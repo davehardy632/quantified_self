@@ -1,26 +1,14 @@
-const shell = require('shelljs');
-const request = require("supertest");
-const app = require('../../../app.js');
+var shell = require("shelljs")
+var request = require("supertest")
+var app = require("../../../app")
+const express = require("express");
+var router = express.Router();
+var Food = require('../../../models').Food;
+var Meal = require('../../../models').Meal;
+var MealFoods = require('../../../models').MealFoods;
 
 describe('api', () => {
-  beforeAll(() => {
-    shell.exec('npx sequelize db:create');
-  });
-
-  beforeEach(() => {
-    shell.exec('npx sequelize db:migrate');
-    shell.exec('npx sequelize db:seed:all');
-  });
-
-  afterEach(() => {
-    shell.exec('npx sequelize db:migrate:undo:all');
-  });
-
-  afterAll(() => {
-    shell.exec('npx sequelize db:drop');
-  })
-
-  describe('api v1 food fetch all path', () => {
+  describe('api v1 foods fetch all path', () => {
     test('It should respond to a GET request', () => {
     return request(app).get("/api/v1/foods")
       .then(response => {
