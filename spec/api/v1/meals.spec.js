@@ -1,11 +1,7 @@
-var shell = require("shelljs")
 var request = require("supertest")
 var app = require("../../../app")
 const express = require("express");
 var router = express.Router();
-var Food = require('../../../models').Food;
-var Meal = require('../../../models').Meal;
-var MealFoods = require('../../../models').MealFoods;
 
 
 describe('api', () => {
@@ -128,8 +124,8 @@ describe('api', () => {
 
   ///////// user story 8 sad path testing for removing a food from a meal by deleting the association
 
-  describe ("Trying to delete a meal/food association with an invalid meal id", async () => {
-    test("should return a 404 status, stating the meal entry was invalid", async () => {
+  describe ("Trying to delete a meal/food association with an invalid meal id", () => {
+    test("should return a 404 status, stating the meal entry was invalid", () => {
       return request(app).delete("/api/v1/meals/21/foods/3")
       .set('Accept', 'application/json')
       .then(response => {
@@ -139,8 +135,8 @@ describe('api', () => {
     })
   })
 
-  describe ("Trying to delete a meal/food association with an invalid food id", async () => {
-    test("should return a 404 status, stating the food entry was invalid", async () => {
+  describe ("Trying to delete a meal/food association with an invalid food id", () => {
+    test("should return a 404 status, stating the food entry was invalid", () => {
       return request(app).delete("/api/v1/meals/2/foods/31")
       .set('Accept', 'application/json')
       .then(response => {
@@ -150,8 +146,8 @@ describe('api', () => {
     })
   })
 
-  describe ("Trying to delete a meal/food association that doesnt exist", async () => {
-    test("should return a 404 status, stating the association already does not exist", async () => {
+  describe ("Trying to delete a meal/food association that doesnt exist", () => {
+    test("should return a 404 status, stating the association already does not exist", () => {
       return request(app).delete("/api/v1/meals/1/foods/5")
       .set('Accept', 'application/json')
       .then(response => {
