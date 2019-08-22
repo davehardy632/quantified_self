@@ -70,4 +70,34 @@ router.post('/', function(req, res) {
   }
 });
 
+router.patch('/:id', function(req, res) {
+  if (req.body.food && req.body.food.name && req.body.food.calories) {
+    Food.findByPk(req.params.id)
+    .then(food => {
+      if (food) {
+        food.update({
+          name: req.body.food.name,
+          calories: parseInt(req.body.food.calories)
+        }).then(newFood => {
+          res.setHeader("Content-Type", "application/json");
+          res.status(200).send(JSON.stringify(newFood));
+        }).catch(error => {
+          res.setHeader("Content-Type", "application/json");
+          res.status(400).send(JSON.stringify({error: error}));
+        });
+      } else {
+        res.setHeader("Content-Type", "application/json");
+        res.status(404).send(JSON.stringify({error: "No food with that ID can be found."}));
+      }
+    })
+    .catch(error => {
+      res.setHeader("Content-Type", "application/json");
+      res.status(400).send(JSON.stringify({error: error}));
+    });
+  } else {
+    res.setHeader("Content-Type", "application/json");
+    res.status(406).send(JSON.stringify({error: "Invalid Entry."}));
+  }
+});
+
 module.exports = router;
