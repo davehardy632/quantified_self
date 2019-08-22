@@ -1,11 +1,7 @@
-var shell = require("shelljs")
 var request = require("supertest")
 var app = require("../../../app")
 const express = require("express");
 var router = express.Router();
-var Food = require('../../../models').Food;
-var Meal = require('../../../models').Meal;
-var MealFoods = require('../../../models').MealFoods;
 
 describe('api', () => {
   describe('api v1 foods fetch all path', () => {
