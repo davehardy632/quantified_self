@@ -32,16 +32,6 @@ describe('api', () => {
       });
     });
 
-    test('It should not create a new food object if invalid name is passed', () => {
-      return request(app).patch("/api/v1/foods/1")
-        .send({food:{name: 12345, calories: 200}})
-        .then(response => {
-        expect(response.statusCode).toBe(400);
-        console.log(response.body)
-        expect(Object.keys(response.body)).toContain("error");
-      });
-    });
-
     test('It should not create a new food object if no params are passed', () => {
       return request(app).patch("/api/v1/foods/1")
       .then(response => {
@@ -54,7 +44,7 @@ describe('api', () => {
       return request(app).patch("/api/v1/foods/12345")
       .send({food:{name: "Pizza", calories: 200}})
       .then(response => {
-        expect(response.statusCode).toBe(406);
+        expect(response.statusCode).toBe(404);
         expect(Object.keys(response.body)).toContain("error");
       });
     });
@@ -63,8 +53,7 @@ describe('api', () => {
       return request(app).patch("/api/v1/foods/")
       .send({food:{name: "Pizza", calories: 200}})
       .then(response => {
-        expect(response.statusCode).toBe(406);
-        expect(Object.keys(response.body)).toContain("error");
+        expect(response.statusCode).toBe(404);
       });
     });
   });
