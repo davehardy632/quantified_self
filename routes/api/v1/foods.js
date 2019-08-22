@@ -100,4 +100,27 @@ router.patch('/:id', function(req, res) {
   }
 });
 
+router.delete('/:id', function(req, res) {
+  Food.findByPk(req.params.id)
+  .then(food => {
+    if (food) {
+      food.destroy()
+      .then(() => {
+        res.setHeader("Content-Type", "application/json");
+        res.status(204).send();
+      }).catch(error => {
+        res.setHeader("Content-Type", "application/json");
+        res.status(400).send(JSON.stringify({error: error}));
+      });
+    } else {
+      res.setHeader("Content-Type", "application/json");
+      res.status(404).send(JSON.stringify({error: "No food with that ID can be found."}));
+    }
+  })
+  .catch(error => {
+    res.setHeader("Content-Type", "application/json");
+    res.status(400).send(JSON.stringify({error: error}));
+  });
+});
+
 module.exports = router;
