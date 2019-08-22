@@ -36,8 +36,7 @@ describe('api', () => {
       return request(app).post("/api/v1/foods")
         .send({food:{name: 12345, calories: 200}})
         .then(response => {
-        expect(response.statusCode).toBe(500);
-        console.log(response.body)
+        expect(response.statusCode).toBe(400);
         expect(Object.keys(response.body)).toContain("error");
       });
     });
