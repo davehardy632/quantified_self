@@ -20,7 +20,7 @@ router.get('/:id', function(req, res) {
   })
   .catch(error => {
     res.setHeader("Content-Type", "application/json");
-    res.status(500).send(JSON.stringify(error));
+    res.status(400).send(JSON.stringify(error));
   });
 });
 
@@ -32,7 +32,7 @@ router.get('/', function(req, res) {
   })
   .catch(error => {
     res.setHeader("Content-Type", "application/json");
-    res.status(500).send(JSON.stringify(error));
+    res.status(400).send(JSON.stringify(error));
   });
 });
 
@@ -53,7 +53,7 @@ router.post('/', function(req, res) {
           res.status(201).send(JSON.stringify(newFood));
         }).catch(error => {
           res.setHeader("Content-Type", "application/json");
-          res.status(500).send(JSON.stringify({error: error}));
+          res.status(400).send(JSON.stringify({error: error}));
         });
       } else {
         res.setHeader("Content-Type", "application/json");
@@ -62,7 +62,7 @@ router.post('/', function(req, res) {
     })
     .catch(error => {
       res.setHeader("Content-Type", "application/json");
-      res.status(500).send(JSON.stringify({error: error}));
+      res.status(400).send(JSON.stringify({error: error}));
     });
   } else {
     res.setHeader("Content-Type", "application/json");
