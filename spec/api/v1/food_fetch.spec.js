@@ -18,9 +18,9 @@ describe('api', () => {
         expect(Object.keys(response.body[0])).toContain("id");
         expect(Object.keys(response.body[0])).toContain("name");
         expect(Object.keys(response.body[0])).toContain("calories");
-        expect(Object.keys(response.body[6])).toContain("id");
-        expect(Object.keys(response.body[6])).toContain("name");
-        expect(Object.keys(response.body[6])).toContain("calories");
+        expect(Object.keys(response.body[1])).toContain("id");
+        expect(Object.keys(response.body[1])).toContain("name");
+        expect(Object.keys(response.body[1])).toContain("calories");
       });
     });
   });
