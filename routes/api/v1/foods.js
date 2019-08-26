@@ -27,8 +27,13 @@ router.get('/:id', function(req, res) {
 router.get('/', function(req, res) {
   Food.findAll({attributes: ["id", "name", "calories"]})
   .then(foods => {
-    res.setHeader("Content-Type", "application/json");
-    res.status(200).send(JSON.stringify(foods));
+    if (foods.length > 0) {
+      res.setHeader("Content-Type", "application/json");
+      res.status(200).send(JSON.stringify(foods));
+    } else {
+      res.setHeader("Content-Type", "application/json");
+      res.status(400).send(JSON.stringify({error: "No food entries located."}));
+    }
   })
   .catch(error => {
     res.setHeader("Content-Type", "application/json");
