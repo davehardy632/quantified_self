@@ -18,10 +18,11 @@ module.exports = {
     "operatorsAliases": false
   },
   "production": {
+    "use_env_variable": 'DATABASE_URL',
     "username": process.env.DB_USER,
     "password": null,
     "database": process.env.DB_NAME_PROD,
-    "host": "127.0.0.1",
+    "host": "https://floating-savannah-19561.herokuapp.com/",
     "dialect": "postgres",
     "operatorsAliases": false
   }
