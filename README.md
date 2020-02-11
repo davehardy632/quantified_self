@@ -8,7 +8,7 @@ An API for meal and calorie tracking using Node.Js and Express.
 * Install the requirements using npm:
 > npm install
 
-  This will install the required pacakges for the project.
+  This will install the required packages for the project.
 
 * Create and migrate the local database using sequelize:
 > npx sequelize db:create
